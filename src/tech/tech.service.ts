@@ -6,11 +6,15 @@ import { Tech } from './tech.entity';
 @Injectable()
 export class TechService {
   constructor(
-    @InjectRepository(Tech)
-    private readonly techRepository: Repository<Tech>,
-  ) {}
+        @InjectRepository(Tech)
+        private readonly techRepository: Repository<Tech>,
+    ) {}
 
-  async findAll(): Promise<Tech[]> {
-    return await this.techRepository.find();
-  }
+    async findAll(): Promise<Tech[]> {
+        return await this.techRepository.find();
+    }
+
+    async find(id): Promise<Tech> {
+      return await this.techRepository.findOne(id);
+    }
 }

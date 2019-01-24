@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Param } from '@nestjs/common';
 import { TechService } from './tech.service';
 import { Tech } from './tech.entity';
 
@@ -9,5 +9,10 @@ export class TechController {
   @Get()
   async getAll(): Promise<Tech[]> {
     return await this.techService.findAll();
+  }
+
+  @Get(':id')
+  async getById(@Param('id') id): Promise<Tech> {
+      return await this.techService.find(id);
   }
 }
