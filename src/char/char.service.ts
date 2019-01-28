@@ -2,12 +2,15 @@ import { Injectable, Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, createQueryBuilder } from 'typeorm';
 import { Char } from './char.entity';
+import { Gif } from '../gif/gif.entity';
 
 @Injectable()
 export class CharService {
   constructor(
         @InjectRepository(Char)
         private readonly charRepository: Repository<Char>,
+        @InjectRepository(Gif)
+        private readonly gifRepository: Repository<Gif>,
     ) {}
 
     charGifTypeId: number = 0;
@@ -16,12 +19,18 @@ export class CharService {
         return await this.charRepository.find();
     }
 
-    async find(id: number): Promise<Char> {
+    async find(id): Promise<Char> {
 
-        const queryBuilder = await createQueryBuilder(Char)
-            .where('Char.id = :charId', {charId: id})
-            .leftJoinAndMapMany('charinfo.gifs', 'gifs', 'gif', '"Char"."id"="gif"."dataid"');
+        const char: Char = await this.charRepository.findOne(id);
 
-        return queryBuilder.getOne();
+        const charGifs = await createQueryBuilder(Gif)
+             .where(`dataid = :charId AND typeid = :typeId`, {
+                 charId: char.id,
+                 typeId: this.charGifTypeId,
+            }).getMany();
+
+        char.gifs = charGifs;
+
+        return char;
     }
 }
