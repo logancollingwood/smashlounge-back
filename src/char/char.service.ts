@@ -19,7 +19,7 @@ export class CharService {
         return await this.charRepository.find();
     }
 
-    async find(id): Promise<Char> {
+    async find(id: number): Promise<Char> {
 
         const char: Char = await this.charRepository.findOne(id);
 

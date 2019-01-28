@@ -11,8 +11,13 @@ import { CharModule } from './char/char.module';
 import { CharController } from './char/char.controller';
 import { CharService } from './char/char.service';
 
+import { GroupController } from './group/group.controller';
+import { GroupService } from './group/group.service';
+import { GroupModule } from './group/group.module';
+
 require('dotenv').config();
 import * as PostgressConnectionStringParser from 'pg-connection-string';
+
 const connectionOptions = PostgressConnectionStringParser.parse(process.env.DATABASE_URL);
 
 @Module({
@@ -37,8 +42,9 @@ const connectionOptions = PostgressConnectionStringParser.parse(process.env.DATA
     }),
     TechModule,
     CharModule,
+    GroupModule,
   ],
-  controllers: [AppController, TechController, CharController],
-  providers: [AppService, TechService, CharService],
+  controllers: [AppController, TechController, CharController, GroupController],
+  providers: [AppService, TechService, CharService, GroupService],
 })
 export class AppModule {}
