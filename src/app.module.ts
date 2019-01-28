@@ -19,7 +19,6 @@ import { GifController } from './gif/gif.controller';
 import { GifService } from './gif/gif.service';
 import { GifModule } from './gif/gif.module';
 
-
 require('dotenv').config();
 import * as PostgressConnectionStringParser from 'pg-connection-string';
 
