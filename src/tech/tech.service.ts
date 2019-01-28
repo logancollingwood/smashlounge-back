@@ -14,7 +14,7 @@ export class TechService {
         return await this.techRepository.find();
     }
 
-    async find(id): Promise<Tech> {
+    async find(id: number): Promise<Tech> {
       return await this.techRepository.findOne(id);
     }
 }

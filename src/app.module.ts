@@ -2,9 +2,15 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
 import { TechModule } from './tech/tech.module';
 import { TechController } from './tech/tech.controller';
 import { TechService } from './tech/tech.service';
+
+import { CharModule } from './char/char.module';
+import { CharController } from './char/char.controller';
+import { CharService } from './char/char.service';
+
 require('dotenv').config();
 import * as PostgressConnectionStringParser from 'pg-connection-string';
 const connectionOptions = PostgressConnectionStringParser.parse(process.env.DATABASE_URL);
@@ -30,8 +36,9 @@ const connectionOptions = PostgressConnectionStringParser.parse(process.env.DATA
       logging: true,
     }),
     TechModule,
+    CharModule,
   ],
-  controllers: [AppController, TechController],
-  providers: [AppService, TechService],
+  controllers: [AppController, TechController, CharController],
+  providers: [AppService, TechService, CharService],
 })
 export class AppModule {}
