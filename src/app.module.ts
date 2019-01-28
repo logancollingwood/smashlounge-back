@@ -15,6 +15,11 @@ import { GroupController } from './group/group.controller';
 import { GroupService } from './group/group.service';
 import { GroupModule } from './group/group.module';
 
+import { GifController } from './gif/gif.controller';
+import { GifService } from './gif/gif.service';
+import { GifModule } from './gif/gif.module';
+
+
 require('dotenv').config();
 import * as PostgressConnectionStringParser from 'pg-connection-string';
 
@@ -43,8 +48,9 @@ const connectionOptions = PostgressConnectionStringParser.parse(process.env.DATA
     TechModule,
     CharModule,
     GroupModule,
+    GifModule,
   ],
-  controllers: [AppController, TechController, CharController, GroupController],
-  providers: [AppService, TechService, CharService, GroupService],
+  controllers: [AppController, TechController, CharController, GroupController, GifController],
+  providers: [AppService, TechService, CharService, GroupService, GifService],
 })
 export class AppModule {}
